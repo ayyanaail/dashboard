@@ -1,11 +1,21 @@
-@props(['active'])
+@props([
+    'href' => '#',
+    'label' => '',
+    'icon' => null,
+    'badge' => null,
+    'active' => false,
+])
 
-@php
-$classes = ($active ?? false)
-            ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 dark:border-indigo-600 text-sm font-medium leading-5 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
-            : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-700 transition duration-150 ease-in-out';
-@endphp
-
-<a {{ $attributes->merge(['class' => $classes]) }}>
+<a {{ $attributes->merge(['href' => $href, 'class' => 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold ' . ($active ? 'bg-gray-50 text-indigo-600 dark:bg-gray-700 dark:text-indigo-400' : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-indigo-400')]) }}>
+    @if ($icon)
+        <svg class="size-6 shrink-0 {{ $active ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400 group-hover:text-indigo-600 dark:text-gray-500 dark:group-hover:text-indigo-400' }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            {!! $icon !!}
+        </svg>
+    @elseif ($badge)
+        <span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500 dark:group-hover:border-indigo-400 dark:group-hover:text-indigo-400">
+            {{ $badge }}
+        </span>
+    @endif
+    <span class="truncate">{{ $label }}</span>
     {{ $slot }}
 </a>

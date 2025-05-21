@@ -18,7 +18,9 @@
             <!-- Sidebar Content -->
             <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
                 <div class="flex h-16 shrink-0 items-center">
-                    <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+                    <a href="/">
+                        <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    </a>
                 </div>
                 <nav class="flex flex-1 flex-col">
                     <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -115,8 +117,10 @@
 <!-- Static Sidebar for Desktop -->
 <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
     <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-        <div class="flex h-16 shrink-0 items-center">
-            <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+        <div class="flex justify-center items-center my-3">
+            <a href="/">
+                <x-application-logo class="fill-current text-gray-500" />
+            </a>
         </div>
         <nav class="flex flex-1 flex-col">
             <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -174,11 +178,21 @@
                     </ul>
                 </li>
                 <li class="-mx-6 mt-auto">
-                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50">
-                        <img class="size-8 rounded-full bg-gray-50" src="https://placehold.co/100x100" alt="">
-                        <span class="sr-only">Your profile</span>
-                        <span aria-hidden="true">{{ Auth::user()->name }}</span>
-                    </a>
+                    <div class="flex flex-row">
+                        <a href="{{ route('profile.edit') }}" class="flex flex-grow items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50">
+                            <img class="size-8 rounded-full bg-gray-50" src="https://placehold.co/100x100" alt="">
+                            <span class="sr-only">Your profile</span>
+                            <span aria-hidden="true">{{ Auth::user()->name }}</span>
+                        </a>
+                        <form action="{{ route('logout') }}" method="post" class="flex items-center mx-4">
+                            @csrf
+                            <button class="hover:text-rose-500" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
                 </li>
             </ul>
         </nav>
